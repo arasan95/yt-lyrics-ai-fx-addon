@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Lyrics Trancelator (YouTube)",
   "version": "2.1",
-  "description": "Display translated lyrics directly over YouTube videos.",
+  "description": "YouTubeの歌詞を翻訳して動画上に表示する拡張機能です。",
   "icons": {
     "128": "icon.png"
   },
