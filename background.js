@@ -1,5 +1,7 @@
 // Background Script for Lyrics Fetching
 
+const DEEPSEEK_MODEL = "deepseek-v4-flash";
+
 browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     if (message.command === "search_and_show") {
         const config = await browser.storage.local.get({
@@ -297,7 +299,7 @@ async function translateDeepSeek(text, key) {
 
     const url = "https://api.deepseek.com/v1/chat/completions";
     const body = {
-        model: "deepseek-chat",
+        model: DEEPSEEK_MODEL,
         messages: [
             { role: "system", content: "You are a professional translator. Translate the lyrics to Japanese line-by-line. \n\nIMPORTANT: You MUST output the Original English line first, followed immediately by the Japanese translation.\n\nExample Format:\nHello, it's me\nやあ、私だよ\nI was wondering if after all these years\nこれだけの年月が経っても\n\nDo not output only the translation. Keep all original lines." },
             { role: "user", content: text }
@@ -356,7 +358,7 @@ async function fetchDeepSeekCompletion(prompt, key) {
 
     const url = "https://api.deepseek.com/v1/chat/completions";
     const body = {
-        model: "deepseek-chat",
+        model: DEEPSEEK_MODEL,
         messages: [
             { role: "system", content: "You are a helpful assistant for explaining lyrics context." },
             { role: "user", content: prompt }
