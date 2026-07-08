@@ -377,6 +377,7 @@ function createOverlay() {
         fontSize: `${currentFontSize}px`,
         lineHeight: '1.6',
         fontFamily: 'sans-serif',
+        textRendering: 'geometricPrecision',
         minWidth: '50px' // Prevent collapse
     });
 
@@ -682,18 +683,17 @@ function setEdgeSize(size) {
     currentEdgeSize = size;
     if (contentDiv) {
         if (size > 0) {
-            // Use multiple text-shadows to simulate stroke OUTSIDE the text
-            // Generate shadows in a circle for smoother look
-            const layers = [];
-            const steps = 16; // Number of shadows for roundness
-            for (let i = 0; i < steps; i++) {
-                const angle = (i * 2 * Math.PI) / steps;
-                const x = (size * Math.cos(angle)).toFixed(2);
-                const y = (size * Math.sin(angle)).toFixed(2);
-                layers.push(`${x}px ${y}px 0 #000`);
-            }
-            contentDiv.style.webkitTextStroke = '0px'; // Disable stroke which cuts inside
-            contentDiv.style.textShadow = layers.join(', ');
+            const strokeSize = Math.min(1.2, size * 0.35);
+            const shadowOffset = Math.max(0.75, size * 0.7);
+            const softBlur = Math.max(1.5, size * 1.25);
+
+            contentDiv.style.webkitTextStroke = `${strokeSize.toFixed(2)}px rgba(0,0,0,0.86)`;
+            contentDiv.style.textShadow = [
+                `0 0 ${softBlur.toFixed(2)}px rgba(0,0,0,0.95)`,
+                `0 ${shadowOffset.toFixed(2)}px ${(softBlur * 1.4).toFixed(2)}px rgba(0,0,0,0.9)`,
+                `${shadowOffset.toFixed(2)}px 0 ${(softBlur * 0.8).toFixed(2)}px rgba(0,0,0,0.75)`,
+                `${(-shadowOffset).toFixed(2)}px 0 ${(softBlur * 0.8).toFixed(2)}px rgba(0,0,0,0.75)`
+            ].join(', ');
         } else {
             contentDiv.style.webkitTextStroke = '0px';
             contentDiv.style.textShadow = 'none';
@@ -856,5 +856,4 @@ waitForPlayer().then((player) => {
         console.error("[LyricsExt] Failed to initialize: player not found (Promise).");
     }
 });
-
 
