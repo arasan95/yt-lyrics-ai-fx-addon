@@ -1,49 +1,54 @@
 {
-  "manifest_version": 2,
-  "name": "Lyrics Trancelator (YouTube)",
-  "version": "2.1",
-  "description": "YouTubeの歌詞を翻訳して動画上に表示する拡張機能です。",
-  "icons": {
-    "128": "icon.png"
-  },
-  "permissions": [
-    "storage",
-    "activeTab",
-    "https://genius.com/*",
-    "https://api.genius.com/*",
-    "https://generativelanguage.googleapis.com/*",
-    "https://api.deepseek.com/*",
-    "https://api.openai.com/*",
-    "https://api-inference.huggingface.co/*",
-    "https://openrouter.ai/*"
-  ],
-  "options_ui": {
-    "page": "options.html",
-    "browser_style": true
-  },
-  "browser_action": {
-    "default_icon": "icon.png",
-    "default_title": "Lyrics Translator",
-    "default_popup": "popup.html"
-  },
-  "background": {
-    "scripts": ["background.js"]
-  },
-  "content_scripts": [
-    {
-      "matches": ["*://www.youtube.com/watch*"],
-      "js": ["content.js"],
-      "run_at": "document_idle"
+    "manifest_version": 2,
+    "name": "Lyrics Trancelator (YouTube)",
+    "version": "2.2",
+    "description": "YouTubeの歌詞を翻訳して動画上に表示する拡張機能です。",
+    "icons": {
+        "128": "icon.png"
+    },
+    "permissions": [
+        "storage",
+        "activeTab",
+        "https://genius.com/*",
+        "https://api.genius.com/*",
+        "https://generativelanguage.googleapis.com/*",
+        "https://api.deepseek.com/*"
+    ],
+    "options_ui": {
+        "page": "options.html",
+        "browser_style": true
+    },
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_title": "Lyrics Translator",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://www.youtube.com/watch*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_idle"
+        }
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "lyrics-trancelator@arasan95.extension",
+            "strict_min_version": "142.0",
+            "data_collection_permissions": {
+                "required": [
+                    "none"
+                ],
+                "optional": []
+            }
+        }
     }
-  ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "lyrics-trancelator@arasan95.extension",
-      "strict_min_version": "142.0",
-      "data_collection_permissions": {
-        "required": ["none"],
-        "optional": []
-      }
-    }
-  }
 }
